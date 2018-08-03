@@ -14,5 +14,10 @@ namespace Fsa.DataSink.Models
 
         public int Id { get; }
         public string Name { get; }
+
+        public override string ToString()
+        {
+            return string.Concat(Id, ": ", Name);
+        }
     }
 }

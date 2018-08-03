@@ -9,11 +9,13 @@ namespace Fsa.DataSink
 {
     public sealed class RegionService : IRegionService
     {
+        readonly Uri rootUri;
         readonly HttpClient httpClient;
 
-        public RegionService(HttpClient httpClient)
+        public RegionService(HttpClient httpClient, Uri rootUri)
         {
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            this.rootUri = rootUri ?? throw new ArgumentNullException(nameof(rootUri));
         }
 
         public Task<IEnumerable<Region>> GetRegionsAsync()
