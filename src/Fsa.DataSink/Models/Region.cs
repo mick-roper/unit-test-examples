@@ -19,5 +19,19 @@ namespace Fsa.DataSink.Models
         {
             return string.Concat(Id, ": ", Name);
         }
+
+        public override int GetHashCode()
+        {
+            const int PRIME = 8581;
+            int hash = PRIME;
+
+            unchecked
+            {
+                hash = (Id * PRIME) + hash;
+                hash = (Name?.GetHashCode() ?? 1 * PRIME) + hash;
+            }
+
+            return hash;
+        }
     }
 }
