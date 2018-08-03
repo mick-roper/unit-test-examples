@@ -15,10 +15,9 @@ namespace Fsa.DataSink.Models
         public int Id { get; }
         public string Name { get; }
 
-        public override string ToString()
-        {
-            return string.Concat(Id, ": ", Name);
-        }
+        public override string ToString() => string.Concat(Id, ": ", Name);
+
+        public override bool Equals(object obj) => obj as Region != null ? obj.GetHashCode() == GetHashCode() : false;
 
         public override int GetHashCode()
         {

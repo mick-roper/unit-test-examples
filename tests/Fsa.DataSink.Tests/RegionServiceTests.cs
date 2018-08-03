@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -38,10 +39,9 @@ namespace Fsa.DataSink.Tests
         {
             var inputData = new[] { new Region(1, "A"), new Region(2, "B"), new Region(3, "C") };
 
-            var mockReponse = new Mock<HttpResponseMessage>();
-            mockReponse
-                .Setup(x => x.Content)
-                .Returns(new StringContent(JsonConvert.SerializeObject(inputData), Encoding.UTF8, "application/json"));
+            var response = new HttpResponseMessage(HttpStatusCode.OK) {
+                Content = new StringContent(JsonConvert.SerializeObject(inputData))
+            };
 
             var request = Mock.Of<HttpRequestMessage>();
 
@@ -51,7 +51,7 @@ namespace Fsa.DataSink.Tests
 
             mockHttpClient
                 .Setup(x => x.SendAsync(request, CancellationToken.None))
-                .ReturnsAsync(mockReponse.Object);
+                .ReturnsAsync(response);
 
             var component = new RegionService(mockHttpClient.Object, mockRequestFactory.Object);
 
