@@ -8,16 +8,17 @@ namespace Fsa.DataSink
     class Program
     {
         static readonly HttpClient httpClient = new HttpClient();
-        static readonly Uri apiRoot = new Uri("");
 
         static void Main(string[] args)
         {
-            AsyncMain().Wait();
+            var rootUri = new Uri(args[1]);
+
+            AsyncMain(rootUri).Wait();
         }
 
-        private static async Task AsyncMain()
+        private static async Task AsyncMain(Uri rootUri)
         {
-            var requestFactory = new RequestFactory(apiRoot);
+            var requestFactory = new RequestFactory(rootUri);
 
             IRegionService regionService = new RegionService(httpClient, requestFactory);
 
