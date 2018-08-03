@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Fsa.DataSink
 {
@@ -8,7 +9,7 @@ namespace Fsa.DataSink
         static readonly HttpClient httpClient = new HttpClient();
         static readonly Uri apiRoot = new Uri("");
 
-        static async void Main(string[] args)
+        static async Task Main(string[] args)
         {
             IRegionService regionService = new RegionService(httpClient, apiRoot);
 
