@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fsa.DataSink.Factories;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,9 +10,16 @@ namespace Fsa.DataSink
         static readonly HttpClient httpClient = new HttpClient();
         static readonly Uri apiRoot = new Uri("");
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            IRegionService regionService = new RegionService(httpClient, apiRoot);
+            AsyncMain().Wait();
+        }
+
+        private static async Task AsyncMain()
+        {
+            var requestFactory = new RequestFactory(apiRoot);
+
+            IRegionService regionService = new RegionService(httpClient, requestFactory);
 
             var regions = await regionService.GetRegionsAsync();
 
